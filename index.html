@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Configuración con MQTT</title>
+<meta name="description" content="Presentación interactiva de la configuración con MQTT: broker Mosquitto, puertos, usuarios, permisos, TLS, clientes y diagnóstico, con cuatro laboratorios simulados.">
+<meta name="theme-color" content="#86182f">
+<link rel="icon" type="image/png" href="assets/logo-unifranz.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#mapa">Saltar al contenido</a>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="#top"><img src="assets/logo-unifranz.png" alt="Logo de la Universidad Privada Franz Tamayo"><span>Configuración con MQTT</span></a>
+    <nav class="pills" id="pills" aria-label="Secciones"></nav>
+    <a class="estado" id="estado" href="#broker" title="Estado del broker simulado"><span class="luz"></span><span id="estado-txt">Broker en línea</span><small id="estado-sub"></small></a>
+  </div>
+</header>
+
+<div class="page" id="top">
+  <aside class="rail" aria-label="Recorrido de la página"><ol id="rail"></ol></aside>
+
+  <main>
+    <!-- ================= PORTADA ================= -->
+    <section class="hero" aria-labelledby="titulo">
+      <div>
+        <h1 id="titulo">Configurar<br>MQTT</h1>
+        <p class="lead">Un broker, un cliente y unas cuantas líneas de configuración. Aquí aprendes qué decide cada una y lo pruebas con tus propias manos: enciende la seguridad, conecta un dispositivo, rompe algo y míralo arreglarse.</p>
+        <div class="acciones">
+          <a class="btn" href="#mapa">Empezar por el mapa</a>
+          <a class="btn sec" href="#broker">Ir directo al laboratorio</a>
+        </div>
+        <div class="equipo">
+          <img src="assets/logo-unifranz.png" alt="Logo de la Universidad Privada Franz Tamayo">
+          <div>
+            <div class="uni">UNIVERSIDAD PRIVADA FRANZ TAMAYO</div>
+            <p>FACULTAD DE INGENIERÍA, INGENIERÍA DE SISTEMAS</p>
+            <p class="foro"><b>Foro:</b> (ABRetos) Presentación de la configuración con MQTT</p>
+            <ul aria-label="Integrantes del equipo">
+              <li>MARCOS ALEXANDER PANOZO PATTY</li>
+              <li>ARIO MAURICIO CHACON OROSCO</li>
+              <li>MARCOS JAVIER VARGAS CALLIZAYA</li>
+              <li>CRIS KLEBER BALLON CHIPANA</li>
+              <li>ADRIAN EDWIN AGUIRRE ROJAS</li>
+            </ul>
+            <div class="lugar">LA PAZ - BOLIVIA, 2026</div>
+          </div>
+        </div>
+      </div>
+      <div class="maqueta" aria-label="Ejemplo de archivo mosquitto.conf">
+        <div class="barra"><i></i><span>mosquitto.conf</span></div>
+        <pre id="tipeo" aria-live="off"></pre>
+        <div class="nota">Cuatro directivas bastan para un broker con contraseña que recuerda sus datos. El resto de la página explica qué hace cada una y qué más se puede ajustar.</div>
+      </div>
+    </section>
+
+    <!-- ================= MAPA ================= -->
+    <section class="bloque" id="mapa" aria-labelledby="h-mapa">
+      <div class="cab">
+        <h2 id="h-mapa">La configuración, de punta a punta</h2>
+        <p>Configurar MQTT no es una sola tarea. Son tres lugares donde se toman decisiones. En el broker decides quién puede entrar y qué recuerda. En cada cliente decides cómo se presenta y qué hace si se cae. Entre los dos, las credenciales y los permisos fijan qué se puede publicar y leer.</p>
+      </div>
+      <div class="ruta" id="ruta" role="tablist" aria-label="Pasos de la configuración"></div>
+      <div class="ruta-det" id="ruta-det" role="tabpanel" aria-live="polite"></div>
+    </section>
+
+    <!-- ================= LAB 1: BROKER ================= -->
+    <section class="bloque" id="broker" aria-labelledby="h-broker">
+      <div class="cab">
+        <h2 id="h-broker">Arma el archivo mosquitto.conf</h2>
+        <p>Mosquitto lee un archivo de texto con una directiva por línea. Mueve los controles: el archivo se reescribe solo, aparecen los riesgos y el broker simulado cambia de verdad. Lo que configures aquí vale para todos los laboratorios de abajo.</p>
+      </div>
+      <div id="lab-instalar"></div>
+      <div id="lab-broker"></div>
+    </section>
+
+    <!-- ================= LAB 2: PERMISOS ================= -->
+    <section class="bloque" id="permisos" aria-labelledby="h-permisos">
+      <div class="cab">
+        <h2 id="h-permisos">Usuarios y permisos</h2>
+        <p>La autenticación responde a la pregunta ¿quién eres? La lista de control de acceso (ACL) responde a ¿qué puedes hacer? Son dos archivos distintos y se complementan. Crea usuarios, escribe reglas y comprueba si una acción pasa o se bloquea.</p>
+      </div>
+      <div id="lab-permisos"></div>
+    </section>
+
+    <!-- ================= LAB 3: CLIENTE ================= -->
+    <section class="bloque" id="cliente" aria-labelledby="h-cliente">
+      <div class="cab">
+        <h2 id="h-cliente">Configura un cliente y conéctalo</h2>
+        <p>Cuando un dispositivo se conecta manda un paquete CONNECT con su configuración: quién es, cuánto aguanta en silencio, si quiere sesión limpia y qué debe avisar si se cae. El broker contesta con un CONNACK. Rellena el formulario y pulsa Conectar.</p>
+      </div>
+      <div id="lab-cliente"></div>
+    </section>
+
+    <!-- ================= LAB 4: TERMINALES ================= -->
+    <section class="bloque" id="terminal" aria-labelledby="h-terminal">
+      <div class="cab">
+        <h2 id="h-terminal">Dos terminales, como en clase</h2>
+        <p>Los comandos <code>mosquitto_sub</code> y <code>mosquitto_pub</code> vienen con Mosquitto y son la forma más rápida de probar un broker. A la izquierda suscríbete, a la derecha publica. Escribe tus propios comandos o toca un ejemplo. Aquí también valen los usuarios, la ACL y los puertos que ya configuraste.</p>
+      </div>
+      <div id="lab-terminal"></div>
+    </section>
+
+    <!-- ================= CÓDIGO ================= -->
+    <section class="bloque" id="codigo" aria-labelledby="h-codigo">
+      <div class="cab">
+        <h2 id="h-codigo">Del simulador al código real</h2>
+        <p>Lo que dejaste en el formulario del cliente se convierte en código listo para copiar. Cambia un valor arriba y el código se actualiza.</p>
+      </div>
+      <div id="lab-codigo"></div>
+    </section>
+
+    <!-- ================= DIAGNÓSTICO ================= -->
+    <section class="bloque" id="diagnostico" aria-labelledby="h-diag">
+      <div class="cab">
+        <h2 id="h-diag">Cuando algo falla</h2>
+        <p>Casi todos los errores de MQTT caen en nueve casos. Elige lo que ves en pantalla, lee la causa y, si el caso se puede reproducir, pulsa el botón para provocarlo en el simulador.</p>
+      </div>
+      <div id="lab-diag"></div>
+    </section>
+
+    <!-- ================= REPASO ================= -->
+    <section class="bloque" id="repaso" aria-labelledby="h-repaso">
+      <div class="cab">
+        <h2 id="h-repaso">Ponte a prueba</h2>
+        <p>Seis preguntas sobre lo que acabas de configurar. Cada respuesta se explica al instante.</p>
+      </div>
+      <div id="lab-quiz"></div>
+    </section>
+
+    <!-- ================= RESUMEN ================= -->
+    <section class="bloque" id="resumen" aria-labelledby="h-resumen">
+      <div class="cab">
+        <h2 id="h-resumen">En resumen</h2>
+      </div>
+      <div class="resumen">
+        <div><h4>El broker se configura por listeners</h4><p>Cada puerto es un listener con su propio transporte: 1883 sin cifrar, 8883 con TLS y 9001 para WebSockets. Sin ningún listener, Mosquitto solo atiende al propio equipo.</p></div>
+        <div><h4>Autenticar y autorizar son dos pasos</h4><p>El archivo de contraseñas decide quién entra. La ACL decide qué topics puede leer o escribir cada uno. Sin regla que coincida, la respuesta es no.</p></div>
+        <div><h4>El cliente se presenta con CONNECT</h4><p>Identificador único, keep alive, sesión limpia o persistente y testamento. El broker contesta con un código que explica casi cualquier fallo.</p></div>
+        <div><h4>El broker puede recordar</h4><p>Con persistencia y sesiones persistentes sobreviven los mensajes retenidos y los pendientes. Sin ellas, un reinicio los borra.</p></div>
+        <div><h4>Se prueba con dos terminales</h4><p>mosquitto_sub escucha y mosquitto_pub envía. Con la opción -d se ven los paquetes y con el registro del broker se entiende por qué algo no llegó.</p></div>
+        <div><h4>Seguridad en capas</h4><p>TLS cifra el canal, las contraseñas identifican y la ACL limita. Ninguna reemplaza a las otras.</p></div>
+      </div>
+
+      <div class="fuentes">
+        <h3>Fuentes consultadas</h3>
+        <ol>
+          <li><a href="https://mosquitto.org/man/mosquitto-conf-5.html" target="_blank" rel="noopener">Eclipse Mosquitto, manual de mosquitto.conf(5): listeners, allow_anonymous, ACL, persistencia y TLS</a></li>
+          <li><a href="https://www.mankier.com/1/mosquitto_sub" target="_blank" rel="noopener">Manual de mosquitto_sub(1): opciones de línea de comandos</a></li>
+          <li><a href="https://www.mankier.com/1/mosquitto_pub" target="_blank" rel="noopener">Manual de mosquitto_pub(1): opciones de línea de comandos</a></li>
+          <li><a href="https://pubsubclient.knolleary.net/api" target="_blank" rel="noopener">PubSubClient, documentación de la API para Arduino y ESP32</a></li>
+          <li><a href="https://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html" target="_blank" rel="noopener">OASIS, MQTT Versión 3.1.1: paquete CONNECT, keep alive y códigos CONNACK</a></li>
+          <li><a href="https://docs.espressif.com/projects/esp-idf/en/v4.4.7/esp32/api-reference/protocols/mqtt.html" target="_blank" rel="noopener">Espressif, ESP-MQTT: URIs, TLS y testamento (Last Will)</a></li>
+          <li><a href="https://www.emqx.com/en/blog/mqtt-ports" target="_blank" rel="noopener">EMQX, puertos de MQTT: cómo configurarlos y protegerlos</a></li>
+          <li><a href="https://docs.hivemq.com/hivemq-edge/listener-configuration.html" target="_blank" rel="noopener">HiveMQ Edge, configuración de listeners</a></li>
+        </ol>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer class="pie">
+  <div class="pie-in">
+    <img src="assets/logo-unifranz.png" alt="Logo de la Universidad Privada Franz Tamayo">
+    <p><b>Foro: (ABRetos) Presentación de la configuración con MQTT</b><br>Universidad Privada Franz Tamayo, Ingeniería de Sistemas<br>La Paz - Bolivia, 2026</p>
+  </div>
+</footer>
+
+<script src="broker.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
